@@ -1,11 +1,12 @@
 
 const uploadPicutre = async (req, res) => {
     try {
-        // if(!req.body) {
-        //     res.status(422).send('Upload picture!')
-        // }
-        const picture = req.body;
+        if(!req.files.file) {
+            res.status(422).send('Upload picture!')
+        }
+        const file = req.files.file
         console.log(picture)
+        console.log("FILES ---> ", file)
         res.status(200).send('Picture\`s uploaded!');
     } catch (e) {
         console.log(e)
@@ -13,11 +14,6 @@ const uploadPicutre = async (req, res) => {
     }
 }
 
-const uploadPicutres = (req, res) => {
-    res.send('Upload photos');
-}
-
 module.exports = {
     uploadPicutre,
-    uploadPicutres
 }
