@@ -1,3 +1,10 @@
+const { v4: uuidv4 } = require('uuid');
+
+const pictures = []
+
+const getPicutres = async (req, res) => {
+    res.send(pictures)
+}
 
 const uploadPicutre = async (req, res) => {
     try {
@@ -5,9 +12,14 @@ const uploadPicutre = async (req, res) => {
             res.status(422).send('Upload picture!')
         }
         const file = req.files.file
-        console.log(picture)
-        console.log("FILES ---> ", file)
-        res.status(200).send('Picture\`s uploaded!');
+
+        const newPicture = {
+            id: uuidv4(),
+            picture: file,
+        }
+        pictures.push(newPicture)
+        console.log("FILE ---> ", pictures)
+        res.status(200).json(file);
     } catch (e) {
         console.log(e)
         res.status(400).send('Bad request!')
@@ -16,4 +28,5 @@ const uploadPicutre = async (req, res) => {
 
 module.exports = {
     uploadPicutre,
+    getPicutres
 }
